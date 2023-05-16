@@ -1,5 +1,6 @@
 ---
 title: "Group Contract"
+author: "Caroline, Kim, Anna, Donya"
 format: html
 editor: visual
 ---
