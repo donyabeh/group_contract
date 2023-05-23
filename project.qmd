@@ -1,0 +1,21 @@
+---
+title: "Project"
+author: "Caroline, Kim, Anna, Donya"
+format: 
+  html:
+    self-contained: true
+    code-tools: true
+    toc: true
+editor: source
+execute: 
+  error: true
+  echo: fenced
+  message: false
+  warning: false
+---
+
+## Setting up R space and reading data in
+```{r}
+library(tidyverse)
+happiness <- read_csv("/Users/donyabehroozi/Documents/stat331grp/Rgroupproject/hapiscore_whr.csv")
+```
