@@ -14,3 +14,5 @@ library(tidyverse)
 happiness <- read_csv("hapiscore_whr.csv")
 ```
 
+
+## Data and variable descriptions 
