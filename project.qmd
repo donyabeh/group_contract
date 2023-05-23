@@ -1,6 +1,6 @@
 ---
 title: "Project"
-author: "Caroline, Kim, Anna, Donya"
+author: "Caroline, Kim-Linh, Anna, Donya"
 self-contained: true
 code-tools: true
 echo: true
@@ -12,5 +12,32 @@ warning: false
 ```{r}
 library(tidyverse)
 happiness <- read_csv("hapiscore_whr.csv")
+lex <- read_csv("lex.csv")
 ```
+
+### Cleaning data
+```{r}
+lex_clean <- lex |>
+  select(country, `2005`:`2022`) |>
+  pivot_longer(cols = `2005`:`2022`,
+               names_to = "year",
+               values_to = "life_expectancy") |>
+  drop_na(life_expectancy)
+
+hap_clean <- happiness |>
+  pivot_longer(cols = `2005`:`2022`,
+               names_to = "year",
+               values_to = "hap_score") |>
+  drop_na(hap_score)
+```
+
+### Joining data
+```{r}
+hap_lex <-hap_clean |>
+    inner_join(lex_clean)
+
+hap_lex
+```
+
+
 
