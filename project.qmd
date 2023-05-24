@@ -43,3 +43,4 @@ head(hap_lex)
 ## Data and variable descriptions 
 
 ## Hypotheses about variables
+We hypothesize that life expectancy will increase with happiness score. This is more of an intuitive belief, as we would expect that with a high percentage of happiness, people in the respective countries would live longer. Of course, this can vary from country to country. It is possible that more developed countries could have a higher happiness score and life expectancy rate, while less developed countries result in the opposite. 
