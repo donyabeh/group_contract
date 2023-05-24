@@ -34,8 +34,7 @@ hap_clean <- happiness |>
 ### Joining data
 ```{r}
 hap_lex <-hap_clean |>
-    inner_join(lex_clean) |>
-    filter(year <= 2019)
+    inner_join(lex_clean)
 
 
 head(hap_lex)

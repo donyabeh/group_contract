@@ -3041,55 +3041,33 @@ vertical-align: -.125em;
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<<<<<<< HEAD
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;life_expectancy&quot;</span>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>hap_clean <span class="ot">&lt;-</span> happiness <span class="sc">|&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2005</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2022</span><span class="st">`</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;hap_score&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-=======
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;life_expectancy&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(life_expectancy)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>hap_clean <span class="ot">&lt;-</span> happiness <span class="sc">|&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;hap_score&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(hap_score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
->>>>>>> a73302a523bdf774e9178174ef9181eb39b41df5
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;hap_score&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="joining-data" class="level3">
 <h3 class="anchored" data-anchor-id="joining-data">Joining data</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hap_lex <span class="ot">&lt;-</span>hap_clean <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(lex_clean) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2019</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(lex_clean)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hap_lex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hap_lex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
   country     year  hap_score life_expectancy
   &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;           &lt;dbl&gt;
-1 Afghanistan 2005       NA              57.6
-2 Afghanistan 2006       NA              58  
-3 Afghanistan 2007       NA              58.5
-4 Afghanistan 2008       37.2            59.2
-5 Afghanistan 2009       44              59.9
-6 Afghanistan 2010       47.6            60.5</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(lex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 195</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(happiness)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 163</code></pre>
+1 Afghanistan 2006       NA              58  
+2 Afghanistan 2007       NA              58.5
+3 Afghanistan 2008       37.2            59.2
+4 Afghanistan 2009       44              59.9
+5 Afghanistan 2010       47.6            60.5
+6 Afghanistan 2011       38.3            61  </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -3106,11 +3084,7 @@ vertical-align: -.125em;
 </section>
 <section id="data-and-variable-descriptions" class="level2">
 <h2 class="anchored" data-anchor-id="data-and-variable-descriptions">Data and variable descriptions</h2>
-<<<<<<< HEAD
-<p>Our project incorporates two datasets: “lex.csv” and “hapiscore_whr.csv.” In “lex.csv,” the variable “country” lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations’ World Population Prospects 2019. In “hapiscore_whr.csv,” the “country” column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the “Happiness score” or “Cantril life ladder”, representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages. Data cleaning and analysis were performed using the “tidyverse” package in R, involving column selection, transformation to long format, and removal of null values. The data sets were then joined using an inner join operation based on common columns.</p>
-=======
 <p>Our project incorporates two datasets: “lex.csv” and “hapiscore_whr.csv.” In “lex.csv,” the variable “country” lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations’ World Population Prospects 2019. In “hapiscore_whr.csv,” the “country” column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the “Happiness score” or “Cantril life ladder”, representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages.</p>
->>>>>>> a73302a523bdf774e9178174ef9181eb39b41df5
 </section>
 <section id="hypothesis-about-variables" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-about-variables">Hypothesis about variables</h2>
@@ -3430,51 +3404,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cleaning data</span></span>
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>lex_clean <span class="ot">&lt;-</span> lex <span class="sc">|&gt;</span></span>
-<<<<<<< HEAD
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2005</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2022</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2005</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2022</span><span class="st">`</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>,</span>
 <span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
 <span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;life_expectancy&quot;</span>)</span>
 <span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>hap_clean <span class="ot">&lt;-</span> happiness <span class="sc">|&gt;</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2005</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2022</span><span class="st">`</span>,</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;hap_score&quot;</span>)</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### Joining data</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>hap_lex <span class="ot">&lt;-</span>hap_clean <span class="sc">|&gt;</span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(lex_clean) <span class="sc">|&gt;</span></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2019</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>,</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;hap_score&quot;</span>)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### Joining data</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>hap_lex <span class="ot">&lt;-</span>hap_clean <span class="sc">|&gt;</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(lex_clean)</span>
 <span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hap_lex)</span>
 <span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a></span>
-=======
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>,</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;life_expectancy&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(life_expectancy)</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>hap_clean <span class="ot">&lt;-</span> happiness <span class="sc">|&gt;</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>,</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;hap_score&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(hap_score)</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="fu">### Joining data</span></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>hap_lex <span class="ot">&lt;-</span>hap_clean <span class="sc">|&gt;</span></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(lex_clean)</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hap_lex)</span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
->>>>>>> a73302a523bdf774e9178174ef9181eb39b41df5
 <span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(lex)</span>
 <span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a></span>
@@ -3483,12 +3433,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data and variable descriptions </span></span>
-<<<<<<< HEAD
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>Our project incorporates two datasets: &quot;lex.csv&quot; and &quot;hapiscore_whr.csv.&quot; In &quot;lex.csv,&quot; the variable &quot;country&quot; lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations&#39; World Population Prospects 2019. In &quot;hapiscore_whr.csv,&quot; the &quot;country&quot; column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the &quot;Happiness score&quot; or &quot;Cantril life ladder&quot;, representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages. Data cleaning and analysis were performed using the &quot;tidyverse&quot; package in R, involving column selection, transformation to long format, and removal of null values. The data sets were then joined using an inner join operation based on common columns.</span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis about variables</span></span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>We hypothesize that life expectancy will increase with happiness score. This is more of an intuitive belief, as we would expect that with a high percentage of happiness, people in the respective countries would live longer. Of course, this can vary from country to country. It is possible that more developed countries could have a higher happiness score and life expectancy rate, while less developed countries result in the opposite.</span>
-=======
 <span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>Our project incorporates two datasets: &quot;lex.csv&quot; and &quot;hapiscore_whr.csv.&quot; In &quot;lex.csv,&quot; the variable &quot;country&quot; lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations&#39; World Population Prospects 2019. In &quot;hapiscore_whr.csv,&quot; the &quot;country&quot; column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the &quot;Happiness score&quot; or &quot;Cantril life ladder&quot;, representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages.</span>
 <span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis about variables</span></span>
@@ -3496,7 +3440,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data cleaning process</span></span>
 <span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>Data cleaning and analysis were performed using the &quot;tidyverse&quot; package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was <span class="in">`hapiscore`</span>&#39;s date range. In <span class="in">`lex_clean`</span>, there were 27 NAs, which were all in the &#39;life expectancy&#39; category. There were 9 countries with 3 NAs each, in the years 2020, 2021, and 2022. <span class="in">`hap_clean`</span> had more NAs, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. As a result of our NA analysis, we chose to further restrict the date range to 2006 - 2020. We felt comfortable indiscriminately dropping NA values from the dataset. So, we concluded that there were no invisible variables affecting where NAs were occurring. The data sets were then joined using an inner join operation based on common columns. </span>
->>>>>>> a73302a523bdf774e9178174ef9181eb39b41df5
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
