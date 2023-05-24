@@ -19,14 +19,15 @@ lex <- read_csv("lex.csv")
 ### Cleaning data
 ```{r}
 lex_clean <- lex |>
-  select(country, `2005`:`2022`) |>
-  pivot_longer(cols = `2005`:`2022`,
+  select(country, `2006`:`2019`) |>
+  pivot_longer(cols = `2006`:`2019`,
                names_to = "year",
                values_to = "life_expectancy") |>
   drop_na(life_expectancy)
 
 hap_clean <- happiness |>
-  pivot_longer(cols = `2005`:`2022`,
+  select(country, `2006`:`2019`) |>
+  pivot_longer(cols = `2006`:`2019`,
                names_to = "year",
                values_to = "hap_score") |>
   drop_na(hap_score)
@@ -47,9 +48,10 @@ nrow(happiness)
 ```
 
 ## Data and variable descriptions 
-Our project incorporates two datasets: "lex.csv" and "hapiscore_whr.csv." In "lex.csv," the variable "country" lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations' World Population Prospects 2019. In "hapiscore_whr.csv," the "country" column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the "Happiness score" or "Cantril life ladder", representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages. Data cleaning and analysis were performed using the "tidyverse" package in R, involving column selection, transformation to long format, and removal of null values. The data sets were then joined using an inner join operation based on common columns.
+Our project incorporates two datasets: "lex.csv" and "hapiscore_whr.csv." In "lex.csv," the variable "country" lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations' World Population Prospects 2019. In "hapiscore_whr.csv," the "country" column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the "Happiness score" or "Cantril life ladder", representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages.
 
 ## Hypothesis about variables
 We hypothesize that life expectancy will increase with happiness score. This is more of an intuitive belief, as we would expect that with a high percentage of happiness, people in the respective countries would live longer. Of course, this can vary from country to country. It is possible that more developed countries could have a higher happiness score and life expectancy rate, while less developed countries result in the opposite.
 
-##Data cleaning process
+## Data cleaning process
+Data cleaning and analysis were performed using the "tidyverse" package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was `hapiscore`'s date range. In `lex_clean`, there were 27 NAs, which were all in the 'life expectancy' category. There were 9 countries with 3 NAs each, in the years 2020, 2021, and 2022. `hap_clean` had more NAs, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. As a result of our NA analysis, we chose to further restrict the date range to 2006 - 2020. We felt comfortable indiscriminately dropping NA values from the dataset. So, we concluded that there were no invisible variables affecting where NAs were occurring. The data sets were then joined using an inner join operation based on common columns. 
