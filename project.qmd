@@ -54,7 +54,16 @@ Data cleaning and analysis were performed using the "tidyverse" package in R, in
 
 ## Data visualization 
 
-## Linear regression 
+## Linear regression
+
+```{r}
+hap_lex |>
+  drop_na() |>
+  group_by(country) |>
+  summarise(avg_hap_score = mean(hap_score), 
+         avg_life_exp = mean(life_expectancy))
+```
+
 
 ## Model fit
 
