@@ -3098,29 +3098,43 @@ vertical-align: -.125em;
 </section>
 <section id="linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression">Linear regression</h2>
+<p><strong>Cleaning <code>hap_lex</code> data set for linear regression analysis</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>hap_lex <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>hap_lex_updated <span class="ot">&lt;-</span> hap_lex <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_hap_score =</span> <span class="fu">mean</span>(hap_score), </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">avg_life_exp =</span> <span class="fu">mean</span>(life_expectancy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">avg_life_exp =</span> <span class="fu">mean</span>(life_expectancy))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hap_lex_updated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 163 × 3
-   country     avg_hap_score avg_life_exp
-   &lt;chr&gt;               &lt;dbl&gt;        &lt;dbl&gt;
- 1 Afghanistan          35.0         61.7
- 2 Albania              50.4         78.2
- 3 Algeria              53.8         75.6
- 4 Angola               44.2         61.8
- 5 Argentina            62.8         76.0
- 6 Armenia              45.7         74.7
- 7 Australia            72.7         82.6
- 8 Austria              72.3         81.4
- 9 Azerbaijan           49.4         69.5
-10 Bahrain              60.0         76.1
-# ℹ 153 more rows</code></pre>
+<pre><code># A tibble: 6 × 3
+  country     avg_hap_score avg_life_exp
+  &lt;chr&gt;               &lt;dbl&gt;        &lt;dbl&gt;
+1 Afghanistan          35.0         61.7
+2 Albania              50.4         78.2
+3 Algeria              53.8         75.6
+4 Angola               44.2         61.8
+5 Argentina            62.8         76.0
+6 Armenia              45.7         74.7</code></pre>
 </div>
 </div>
+<p><strong>Fitting simple linear regression</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>hap_lex_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(avg_life_exp <span class="sc">~</span> avg_hap_score, <span class="at">data =</span> hap_lex_updated)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(hap_lex_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term          estimate std.error statistic  p.value
+  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)     40.1      2.02        19.8 5.03e-45
+2 avg_hap_score    0.587    0.0368      16.0 5.38e-35</code></pre>
+</div>
+</div>
+<p><strong>Simple linear regression model</strong></p>
+<p>Average life expectancy = 40.113 + 0.587*(Average happiness score)</p>
+<p>In the above model, the intercept of 40.113 represents someone with an average happiness score of 0 is expected to have a life expectancy of 40 years, on average. The slope of 0.587 represents that for each increase of the happiness score by 1 unit, the life expectancy will increase by 0.587 units, on average.</p>
 </section>
 <section id="model-fit" class="level2">
 <h2 class="anchored" data-anchor-id="model-fit">Model fit</h2>
@@ -3414,76 +3428,93 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Project&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Caroline, Kim-Linh, Anna, Donya&quot;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="an">self-contained:</span><span class="co"> true</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> true</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="an">echo:</span><span class="co"> true</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="an">message:</span><span class="co"> false</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="an">warning:</span><span class="co"> false</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Setting up R space and reading in data</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>happiness <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;hapiscore_whr.csv&quot;</span>)</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>lex <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;lex.csv&quot;</span>)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cleaning data</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>lex_clean <span class="ot">&lt;-</span> lex <span class="sc">|&gt;</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2021</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2021</span><span class="st">`</span>,</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;life_expectancy&quot;</span>)</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>hap_clean <span class="ot">&lt;-</span> happiness <span class="sc">|&gt;</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2021</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2021</span><span class="st">`</span>,</span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;hap_score&quot;</span>)</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Joining data</span></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>hap_lex <span class="ot">&lt;-</span>hap_clean <span class="sc">|&gt;</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(lex_clean)</span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hap_lex)</span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(lex)</span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(happiness)</span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data and variable descriptions </span></span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>Our project incorporates two datasets: <span class="in">`lex.csv`</span> and <span class="in">`hapiscore_whr.csv`</span>. In <span class="in">`lex.csv`</span>, the variable &quot;country&quot; lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations&#39; World Population Prospects 2019. In <span class="in">`hapiscore_whr.csv`</span>, the &quot;country&quot; column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the &quot;Happiness score&quot; or &quot;Cantril life ladder&quot;, representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages.</span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis about variables</span></span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>We hypothesize that life expectancy will increase with happiness score. This is more of an intuitive belief, as we would expect that with a high percentage of happiness, people in the respective countries would live longer. Of course, this can vary from country to country. It is possible that more developed countries could have a higher happiness score and life expectancy rate, while less developed countries result in the opposite.</span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data cleaning process</span></span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>Data cleaning and analysis were performed using the &quot;tidyverse&quot; package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was <span class="in">`hapiscore`</span>&#39;s date range. In <span class="in">`lex_clean`</span>, there were 27 NAs, which were all in the &#39;life expectancy&#39; category. There were 9 countries with 3 NAs each, in the years 2020, 2021, and 2022. Since there were only 9 countries with a few values missing each, we chose to keep the dates up to 2022. <span class="in">`hap_clean`</span> had more NAs, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. As a result of our NA analysis, we chose to further restrict the date range to 2006. We elected to leave the NAs in the dataset. So, we concluded that there were no invisible variables affecting where NAs were occurring. The data sets were then joined using an inner join operation based on common columns. </span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data visualization </span></span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear regression</span></span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>hap_lex <span class="sc">|&gt;</span></span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_hap_score =</span> <span class="fu">mean</span>(hap_score), </span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>         <span class="at">avg_life_exp =</span> <span class="fu">mean</span>(life_expectancy))</span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model fit</span></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Project&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Caroline, Kim-Linh, Anna, Donya&quot;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="an">self-contained:</span><span class="co"> true</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> true</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="an">echo:</span><span class="co"> true</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="an">message:</span><span class="co"> false</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="an">warning:</span><span class="co"> false</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Setting up R space and reading in data</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>happiness <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;hapiscore_whr.csv&quot;</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>lex <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;lex.csv&quot;</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cleaning data</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>lex_clean <span class="ot">&lt;-</span> lex <span class="sc">|&gt;</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2021</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2021</span><span class="st">`</span>,</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;life_expectancy&quot;</span>)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>hap_clean <span class="ot">&lt;-</span> happiness <span class="sc">|&gt;</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2021</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">2006</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2021</span><span class="st">`</span>,</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;hap_score&quot;</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Joining data</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>hap_lex <span class="ot">&lt;-</span>hap_clean <span class="sc">|&gt;</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(lex_clean)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hap_lex)</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(lex)</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(happiness)</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data and variable descriptions </span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>Our project incorporates two datasets: <span class="in">`lex.csv`</span> and <span class="in">`hapiscore_whr.csv`</span>. In <span class="in">`lex.csv`</span>, the variable &quot;country&quot; lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations&#39; World Population Prospects 2019. In <span class="in">`hapiscore_whr.csv`</span>, the &quot;country&quot; column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the &quot;Happiness score&quot; or &quot;Cantril life ladder&quot;, representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages.</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis about variables</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>We hypothesize that life expectancy will increase with happiness score. This is more of an intuitive belief, as we would expect that with a high percentage of happiness, people in the respective countries would live longer. Of course, this can vary from country to country. It is possible that more developed countries could have a higher happiness score and life expectancy rate, while less developed countries result in the opposite.</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data cleaning process</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>Data cleaning and analysis were performed using the &quot;tidyverse&quot; package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was <span class="in">`hapiscore`</span>&#39;s date range. In <span class="in">`lex_clean`</span>, there were 27 NAs, which were all in the &#39;life expectancy&#39; category. There were 9 countries with 3 NAs each, in the years 2020, 2021, and 2022. Since there were only 9 countries with a few values missing each, we chose to keep the dates up to 2022. <span class="in">`hap_clean`</span> had more NAs, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. As a result of our NA analysis, we chose to further restrict the date range to 2006. We elected to leave the NAs in the dataset. So, we concluded that there were no invisible variables affecting where NAs were occurring. The data sets were then joined using an inner join operation based on common columns. </span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data visualization </span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear regression</span></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>**Cleaning `hap_lex` data set for linear regression analysis**</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>hap_lex_updated <span class="ot">&lt;-</span> hap_lex <span class="sc">|&gt;</span></span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_hap_score =</span> <span class="fu">mean</span>(hap_score), </span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>         <span class="at">avg_life_exp =</span> <span class="fu">mean</span>(life_expectancy))</span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hap_lex_updated)</span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>**Fitting simple linear regression**</span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>hap_lex_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(avg_life_exp <span class="sc">~</span> avg_hap_score, <span class="at">data =</span> hap_lex_updated)</span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(hap_lex_lm)</span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>**Simple linear regression model**</span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a>Average life expectancy = 40.113 + 0.587*(Average happiness score)</span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>In the above model, the intercept of 40.113 represents someone with an average happiness score of 0 is expected to have a life expectancy of 40 years, on average. The slope of 0.587 represents that for each increase of the happiness score by 1 unit, the life expectancy will increase by 0.587 units, on average.</span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model fit</span></span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
