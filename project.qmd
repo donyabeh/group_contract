@@ -51,3 +51,12 @@ We hypothesize that life expectancy will increase with happiness score. This is 
 
 ## Data cleaning process
 Data cleaning and analysis were performed using the "tidyverse" package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was `hapiscore`'s date range. In `lex_clean`, there were 27 NAs, which were all in the 'life expectancy' category. There were 9 countries with 3 NAs each, in the years 2020, 2021, and 2022. Since there were only 9 countries with a few values missing each, we chose to keep the dates up to 2022. `hap_clean` had more NAs, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. As a result of our NA analysis, we chose to further restrict the date range to 2006. We elected to leave the NAs in the dataset. So, we concluded that there were no invisible variables affecting where NAs were occurring. The data sets were then joined using an inner join operation based on common columns. 
+
+## Data visualization 
+
+## Linear regression 
+
+## Model fit
+
+
+
