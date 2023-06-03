@@ -11,6 +11,7 @@ warning: false
 ## Setting up R space and reading in data
 ```{r}
 library(tidyverse)
+library(knitr)
 library(broom)
 happiness <- read_csv("hapiscore_whr.csv")
 lex <- read_csv("lex.csv")
@@ -85,13 +86,18 @@ In the above model, the intercept of 40.113 represents someone with an average h
 
 ## Model fit
 ```{r}
-augment(hap_lex_lm) |>
+table <- augment(hap_lex_lm) |>
   mutate(response_var = var(avg_life_exp),
          fitted_var = var(.fitted),
          residual_var = var(.resid)) |>
   select(response_var, fitted_var, residual_var) |>
   distinct()
 
+kable(table, 
+      format = "simple", 
+      align = "cccrr",
+      col.names = c("Response Variance", "Fitted Variance", "Residual Variance"),
+      caption = "Model Fit Variance")
 # var function https://www.rdocumentation.org/packages/cmvnorm/versions/1.0-7/topics/var
 ```
 
