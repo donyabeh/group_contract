@@ -56,6 +56,37 @@ Data cleaning and analysis were performed using the "tidyverse" package in R, in
 
 ## Data visualization 
 
+**Relationship Between Quantitative Variables**
+
+```{r}
+hap_lex |>
+  drop_na() |>
+  ggplot(mapping = aes(x = hap_score, 
+                       y = life_expectancy)) +
+  geom_point(alpha = 0.4, 
+             color = "mediumorchid3") +
+  labs(x = "Happiness Score",
+       y = " ",
+       subtitle = "Life Expectancy (Years)",
+       title = "Relationship Between Happiness Score and Life Expectancy")
+```
+**Change in Relationship Over Time**
+
+```{r}
+hap_lex |>
+  drop_na() |>
+  ggplot(mapping = aes(x = hap_score, 
+                       y = life_expectancy)) +
+  geom_point(alpha = 0.4, 
+             color = "mediumorchid3") +
+  labs(x = "Happiness Score",
+       y = " ",
+       subtitle = "Life Expectancy (Years)",
+       title = "Relationship Between Happiness Score and Life Expectancy by Year") +
+  facet_wrap(~ year)
+
+```
+
 ## Linear regression
 
 **Cleaning `hap_lex` data set for linear regression analysis**
