@@ -13,6 +13,7 @@ warning: false
 library(tidyverse)
 library(knitr)
 library(broom)
+library(kableExtra)
 happiness <- read_csv("hapiscore_whr.csv")
 lex <- read_csv("lex.csv")
 ```
@@ -37,7 +38,8 @@ hap_clean <- happiness |>
 hap_lex <-hap_clean |>
     inner_join(lex_clean)
 
-head(hap_lex)
+head(hap_lex) |>
+  kable(col.names = c("Country", "Year", "Happiness Score", "Life Expectancy"))
 ```
 
 ```{r}
@@ -67,7 +69,8 @@ hap_lex_updated <- hap_lex |>
   summarise(avg_hap_score = mean(hap_score), 
          avg_life_exp = mean(life_expectancy))
 
-head(hap_lex_updated)
+head(hap_lex_updated) |>
+  kable(col.names = c("Country", "Avg Happiness Score", "Avg Life Expectancy"))
 ```
 
 **Fitting simple linear regression**
@@ -75,7 +78,8 @@ head(hap_lex_updated)
 ```{r}
 hap_lex_lm <- lm(avg_life_exp ~ avg_hap_score, data = hap_lex_updated)
 
-broom::tidy(hap_lex_lm)
+broom::tidy(hap_lex_lm) |>
+  kable(align = "cccrr", col.names = c("Term", "Estimate", "Std Error", "Statistic", "P-value"), caption = "Simple Linear Regression Fit")
 ```
 **Simple linear regression model**
 
