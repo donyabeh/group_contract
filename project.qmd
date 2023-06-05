@@ -3,7 +3,7 @@ title: "Project"
 author: "Caroline, Kim-Linh, Anna, Donya"
 self-contained: true
 code-tools: true
-echo: false
+echo: true
 message: false
 warning: false
 ---
