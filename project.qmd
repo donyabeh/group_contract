@@ -6,9 +6,15 @@ code-tools: true
 echo: true
 message: false
 warning: false
+toc: true
 ---
 
-## Setting up R space and reading in data
+# Setup and Data Cleaning
+
+## Set Up
+
+(code hidden)
+
 ```{r}
 library(tidyverse)
 library(knitr)
@@ -18,7 +24,10 @@ happiness <- read_csv("hapiscore_whr.csv")
 lex <- read_csv("lex.csv")
 ```
 
-## Cleaning data
+## Cleaning
+
+(code hidden)
+
 ```{r}
 lex_clean <- lex |>
   select(country, `2006`:`2021`) |>
@@ -33,32 +42,35 @@ hap_clean <- happiness |>
                values_to = "hap_score")
 ```
 
-## Joining data
+## Joining Data
+
+(code hidden)
+
 ```{r}
 hap_lex <-hap_clean |>
     inner_join(lex_clean)
 
-head(hap_lex) |>
-  kable(col.names = c("Country", "Year", "Happiness Score", "Life Expectancy"))
+# head(hap_lex) |>
+  # kable(col.names = c("Country", "Year", "Happiness Score", "Life Expectancy"))
 ```
 
-```{r}
-nrow(lex)
-nrow(happiness)
-```
+# Description, Hypothesis, and Explanation of Methods
 
-## Data and variable descriptions 
+## Data and Variable Descriptions 
+
 Our project incorporates two datasets: `lex.csv` and `hapiscore_whr.csv`. In `lex.csv`, the variable "country" lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations' World Population Prospects 2019. In `hapiscore_whr.csv`, the "country" column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the "Happiness score" or "Cantril life ladder", representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages.
 
-## Hypothesis about variables
+## Hypothesis About Variables
+
 We hypothesize that life expectancy will increase with happiness score. This is more of an intuitive belief, as we would expect that with a high percentage of happiness, people in the respective countries would live longer. Of course, this can vary from country to country. It is possible that more developed countries could have a higher happiness score and life expectancy rate, while less developed countries result in the opposite.
 
-## Data cleaning process
-Data cleaning and analysis were performed using the "tidyverse" package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was `hapiscore`'s date range. In `lex_clean`, there were 27 NAs, which were all in the 'life expectancy' category. There were 9 countries with 3 NAs each, in the years 2020, 2021, and 2022. Since there were only 9 countries with a few values missing each, we chose to keep the dates up to 2022. `hap_clean` had more NAs, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. As a result of our NA analysis, we chose to further restrict the date range to 2006. We elected to leave the NAs in the dataset. So, we concluded that there were no invisible variables affecting where NAs were occurring. The data sets were then joined using an inner join operation based on common columns. 
+## Data Cleaning Process
 
-## Data visualization 
+Data cleaning and analysis were performed using the "tidyverse" package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was `hapiscore`'s date range. In `lex_clean`, there were 27 missing values, which were all in the 'life expectancy' category. There were 9 countries with 3 missing values each, in the years 2020, 2021, and 2022. Since there were only 9 countries with a few values missing each, we chose to keep the dates up to 2022. `hap_clean` had more missing values, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. So, we concluded that there were no invisible variables affecting where missing values were occurring. As a result of our missing value analysis, we chose to further restrict the date range to 2006. We elected to leave the missing values in the dataset. The data sets were then joined using an inner join operation based on common columns. 
 
-**Relationship Between Quantitative Variables**
+# Data Visualization 
+
+## Relationship Between Quantitative Variables
 
 ```{r}
 hap_lex |>
@@ -72,7 +84,8 @@ hap_lex |>
        subtitle = "Life Expectancy (Years)",
        title = "Relationship Between Happiness Score and Life Expectancy")
 ```
-**Change in Relationship Over Time**
+
+## Change in Relationship Over Time
 
 ```{r}
 hap_lex |>
@@ -89,43 +102,51 @@ hap_lex |>
 
 ```
 
-## Linear regression
+# Linear Regression
 
-**Cleaning `hap_lex` data set for linear regression analysis**
+## Cleaning `hap_lex` for Linear Regression Analysis
+
+(code hidden)
 
 ```{r}
 hap_lex_updated <- hap_lex |>
   drop_na() |>
   group_by(country) |>
   summarise(avg_hap_score = mean(hap_score), 
-         avg_life_exp = mean(life_expectancy))
+            avg_life_exp = mean(life_expectancy))
 
-head(hap_lex_updated) |>
-  kable(col.names = c("Country", "Avg Happiness Score", "Avg Life Expectancy"))
+# head(hap_lex_updated) |>
+  # kable(col.names = c("Country", "Avg Happiness Score", "Avg Life Expectancy"))
 ```
 
-**Fitting simple linear regression**
+## Fitting Linear Regression
 
 ```{r}
 hap_lex_lm <- lm(avg_life_exp ~ avg_hap_score, data = hap_lex_updated)
 
 broom::tidy(hap_lex_lm) |>
-  kable(align = "cccrr", col.names = c("Term", "Estimate", "Std Error", "Statistic", "P-value"), caption = "Simple Linear Regression Fit")
+  kable(align = "cccrr", 
+        col.names = c("Term", "Estimate", "Std Error", "Statistic", "P-value"), 
+        caption = "Simple Linear Regression Fit")
 ```
-**Simple linear regression model**
-
-Average life expectancy = 40.113 + 0.587*(Average happiness score)
-
-In the above model, the intercept of 40.113 represents someone with an average happiness score of 0 is expected to have a life expectancy of 40 years, on average. The slope of 0.587 represents that for each increase of the happiness score by 1 unit, the life expectancy will increase by 0.587 units, on average.
 
 
-## Model fit
+## Simple linear regression model
+
+Average life expectancy = 40.113 + 0.587 * (Average happiness score)
+
+In the above model, the intercept of 40.113 indicates someone with an average happiness score of 0 is expected to have a life expectancy of 40 years, on average. The slope of 0.587 represents that for each increase of the happiness score by 1 point, the life expectancy will increase by 0.587 years, on average.
+
+## Model Fit
+
 ```{r}
 table <- augment(hap_lex_lm) |>
   mutate(response_var = var(avg_life_exp),
          fitted_var = var(.fitted),
          residual_var = var(.resid)) |>
-  select(response_var, fitted_var, residual_var) |>
+  select(response_var, 
+         fitted_var, 
+         residual_var) |>
   distinct()
 
 kable(table, 
@@ -133,7 +154,11 @@ kable(table,
       align = "cccrr",
       col.names = c("Response Variance", "Fitted Variance", "Residual Variance"),
       caption = "Model Fit Variance")
-# var function https://www.rdocumentation.org/packages/cmvnorm/versions/1.0-7/topics/var
 ```
 
 
+## References
+
+Data from [gapminder](https://www.gapminder.org/data/)
+
+Var function from [rdocumentation](https://www.rdocumentation.org/packages/cmvnorm/versions/1.0-7/topics/var)
