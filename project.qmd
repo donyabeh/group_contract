@@ -21,6 +21,7 @@ library(knitr)
 library(broom)
 library(kableExtra)
 library(gridExtra)
+library(purrr)
 happiness <- read_csv("hapiscore_whr.csv")
 lex <- read_csv("lex.csv")
 ```
@@ -201,6 +202,10 @@ grid.arrange(obs_reg_p, sim_reg_p, ncol=2)
 # plot 2 plots side by side: https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2
 ```
 
+```{r}
+#nsims <- 1000
+#sims <- map_dfc(.x = 1:nsims, .f = sim_response)
+```
 
 ## References
 
