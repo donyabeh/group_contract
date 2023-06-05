@@ -59,7 +59,7 @@ hap_lex <-hap_clean |>
 
 ## Data and Variable Descriptions 
 
-Our project incorporates two datasets: `lex.csv` and `hapiscore_whr.csv`. In `lex.csv`, the variable "country" lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations' World Population Prospects 2019. In `hapiscore_whr.csv`, the "country" column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the "Happiness score" or "Cantril life ladder", representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages.
+Our project incorporates two datasets: `lex.csv` and `hapiscore_whr.csv`. In the lex dataset, the variable "country" lists 195 different countries, and each column represents a year from 1800 to 2100. The values indicate the projected lifespan of newborn infants if mortality rates at different ages remain constant throughout their lives for each country. The data from 1800 to 1970 comes from version 7 by Mattias Lindgren, compiled from 100 sources. For the period 1970 to 2016, the main source is the Institute for Health Metrics and Evaluation (IHME) and their Global Burden of Disease Study. IHME data from 1970 to 2017 was published in September 2017, and data from 2017 to 2100 was sourced from the United Nations' World Population Prospects 2019. In the happiness score dataset, the "country" column lists 163 different countries, and each year from 2005 to 2022 has a corresponding column. The data set focuses on the "Happiness score" or "Cantril life ladder", representing the national average response to a life evaluation question. The scale is converted from 0-10 to 0-100 for easier communication. Data is sourced from the World Happiness Report and Gallup World Poll surveys conducted in multiple countries and languages.
 
 ## Hypothesis About Variables
 
@@ -67,7 +67,7 @@ We hypothesize that life expectancy will increase with happiness score. This is 
 
 ## Data Cleaning Process
 
-Data cleaning and analysis were performed using the "tidyverse" package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was `hapiscore`'s date range. In `lex_clean`, there were 27 missing values, which were all in the 'life expectancy' category. There were 9 countries with 3 missing values each, in the years 2020, 2021, and 2022. Since there were only 9 countries with a few values missing each, we chose to keep the dates up to 2022. `hap_clean` had more missing values, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. So, we concluded that there were no invisible variables affecting where missing values were occurring. As a result of our missing value analysis, we chose to further restrict the date range to 2006. We elected to leave the missing values in the dataset. The data sets were then joined using an inner join operation based on common columns. 
+Data cleaning and analysis were performed using the "tidyverse" package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was the happiness score's date range. In the lex clean dataset, there were 27 missing values, which were all in the 'life expectancy' category. There were 9 countries with 3 missing values each, in the years 2020, 2021, and 2022. Since there were only 9 countries with a few values missing each, we chose to keep the dates up to 2022. The happiness clean set had more missing values, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. So, we concluded that there were no invisible variables affecting where missing values were occurring. As a result of our missing value analysis, we chose to further restrict the date range to 2006. We elected to leave the missing values in the dataset. The data sets were then joined using an inner join operation based on common columns. 
 
 # Data Visualization 
 
@@ -87,6 +87,7 @@ obs_reg_p <- hap_lex |>
 
 obs_reg_p
 ```
+The visualization depicts the relationship between the "Happiness Score" and "Life Expectancy" variables using a scatter plot. The scatter plot shows individual data points as circles, where the x-axis represents the happiness score and the y-axis represents life expectancy. The points are colored in a shade of medium orchid with an alpha value of 0.4, giving them a slightly transparent appearance. The plot exhibits a positive linear trend, indicating that as the happiness score increases, life expectancy tends to be higher. 
 
 ## Change in Relationship Over Time
 
@@ -104,6 +105,7 @@ hap_lex |>
   facet_wrap(~ year)
 
 ```
+The visualization consists of 16 individual graphs, each representing the relationship between "Happiness Score" and "Life Expectancy" for a specific year. By utilizing the facet_wrap() function, the graphs are arranged in a grid format, with one graph for each year. This allows for a comparison of the relationship between happiness score and life expectancy across different years. We can notice a trend showing that the points on the scatter plots gradually become closer together as time progresses. This suggests a reduction in the variability of life expectancy with respect to happiness score over the years. In other words, the relationship between these variables appears to have become more consistent and stable over time. Furthermore, the lowest values of life expectancy seem to exhibit an upward trend across the years. This indicates that the minimum life expectancy has increased for each subsequent year. This positive shift in the minimum values signifies an improvement in the lowest attainable life expectancy over time.
 
 # Linear Regression
 
@@ -136,7 +138,9 @@ broom::tidy(hap_lex_lm) |>
 
 ## Simple linear regression model
 
-Average life expectancy = 40.113 + 0.587 * (Average happiness score)
+Linear regression is a statistical method that helps us understand and quantify the relationship between variables. It involves finding a straight line that best fits the data points, allowing us to determine how one variable changes when another variable changes. The equation of the line represents the overall trend of the data, with the slope indicating the rate of change and the y-intercept representing the value when the independent variable is zero. By analyzing the data, linear regression enables us to make predictions and estimate values, while also providing insights into the strength and direction of the relationship between the variables. Our model analyzes how the predicted life expectancy changes with the average happiness scores of countries. Our estimated regression equation is:
+
+Predicted life expectancy = 40.113 + 0.587 * (Average happiness score)
 
 In the above model, the intercept of 40.113 indicates someone with an average happiness score of 0 is expected to have a life expectancy of 40 years, on average. The slope of 0.587 represents that for each increase of the happiness score by 1 point, the life expectancy will increase by 0.587 years, on average.
 
@@ -158,6 +162,20 @@ kable(table,
       col.names = c("Response Variance", "Fitted Variance", "Residual Variance"),
       caption = "Model Fit Variance")
 ```
+The response variance represents the overall variability in the observed values of the dependent variable (average life expectancy). In this model, the response variance is measured to be approximately 63.18226. The fitted variance corresponds to the variability in the predicted values of the dependent variable based on the regression model. In this case, the fitted variance is approximately 38.71835. This indicates the amount of variance that can be explained by the independent variable (happiness score) in predicting the life expectancy. Lastly, the residual variance represents the unexplained variability or the differences between the observed values and the predicted values. The residual variance, measured to be approximately 24.46391, signifies the portion of the response variance that is not accounted for by the model. Overall, the fit of the regression model can be assessed by comparing these variances. A good fit would be indicated by a relatively low residual variance compared to the response variance, suggesting that the model explains a significant portion of the observed variability. In this case, the residual variance represents a substantial proportion of the response variance, indicating that there might be other factors beyond happiness score that contribute to the variability in life expectancy.
+
+# Simulations
+
+## Predictive Checks
+
+(need to add error)
+```{r}
+#pred = data.frame(predict(hap_lex_lm, newdata = hap_lex_updated))
+hap_lex_updated |>
+  ggplot(mapping = aes(x = predict(hap_lex_lm), y = avg_life_exp)) +
+  geom_point()
+```
+
 
 
 ```{r}
@@ -195,3 +213,4 @@ grid.arrange(obs_reg_p, sim_reg_p, ncol=2)
 Data from [gapminder](https://www.gapminder.org/data/)
 
 Var function from [rdocumentation](https://www.rdocumentation.org/packages/cmvnorm/versions/1.0-7/topics/var)
+
