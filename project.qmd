@@ -79,13 +79,13 @@ obs_reg_p <- hap_lex |>
   ggplot(mapping = aes(x = hap_score, 
                        y = life_expectancy)) +
   geom_point(alpha = 0.4, 
-             color = "mediumorchid3") +
+             color = "mediumorchid3")
+
+obs_reg_p +
   labs(x = "Happiness Score",
        y = " ",
        subtitle = "Life Expectancy (Years)",
-       title = "Relationship Between Happiness\nScore and Life Expectancy")
-
-obs_reg_p
+       title = "Relationship Between Happiness Score and Life Expectancy")
 ```
 The visualization depicts the relationship between the "Happiness Score" and "Life Expectancy" variables using a scatter plot. The scatter plot shows individual data points as circles, where the x-axis represents the happiness score and the y-axis represents life expectancy. The points are colored in a shade of medium orchid with an alpha value of 0.4, giving them a slightly transparent appearance. The plot exhibits a positive linear trend, indicating that as the happiness score increases, life expectancy tends to be higher. 
 
@@ -167,17 +167,6 @@ The response variance represents the overall variability in the observed values 
 # Simulations
 
 ## Predictive Checks
-
-(need to add error)
-```{r}
-#pred = data.frame(predict(hap_lex_lm, newdata = hap_lex_updated))
-hap_lex_updated |>
-  ggplot(mapping = aes(x = predict(hap_lex_lm), y = avg_life_exp)) +
-  geom_point()
-```
-
-
-
 ```{r}
 hap_lex_predict <- predict(hap_lex_lm)
 noise <- function(x, mean = 0, sd){
@@ -202,6 +191,11 @@ sim_reg_p <- sim_data |>
        subtitle = "Life Expectancy (Years)",
        title = "Simulated Relationship Between\nHappiness Score and Life\nExpectancy")
 
+obs_reg_p <- obs_reg_p +
+  labs(x = "Happiness Score",
+       y = "",
+       subtitle = "Life Expectancy (Years)",
+       title = "Relationship Between Happiness\nScore and Life Expectancy")
 grid.arrange(obs_reg_p, sim_reg_p, ncol=2)
 
 # plot 2 plots side by side: https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2
