@@ -22,6 +22,8 @@ library(broom)
 library(kableExtra)
 library(gridExtra)
 library(purrr)
+library(plotly)
+library(gapminder)
 happiness <- read_csv("hapiscore_whr.csv")
 lex <- read_csv("lex.csv")
 ```
@@ -207,6 +209,8 @@ grid.arrange(obs_reg_p, sim_reg_p, ncol=2)
 # plot 2 plots side by side: https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2
 ```
 The comparison between the observed and simulated data reveals similarities and differences. Both plots show the relationship between average happiness score and average life expectancy. They share a similar overall average and positive relationship, but we can see a couple of key differences in the two plots. The observed data has a lower minimum life expectancy compared to the simulated data, with the smallest point being 5 years lower than the lowest simulated point, suggesting the inclusion of countries with lower life expectancies. The simulated data appears to have more congestion around the average, indicating greater variability or concentration of points. Additionally, the simulated plot displays a larger maximum life expectancy, being 5 years larger than the maximum life expectancy in the observed data, which could be from extreme values due to the nature of the simulation process. 
+
+
 
 ## References
 
