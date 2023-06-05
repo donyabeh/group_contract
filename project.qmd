@@ -164,7 +164,7 @@ The response variance represents the overall variability in the observed values 
 
 # Simulations
 
-## Predictive Checks
+## Visualizing Simulations from the Model
 ```{r}
 hap_lex_predict <- predict(hap_lex_lm)
 noise <- function(x, mean = 0, sd){
@@ -187,7 +187,7 @@ sim_reg_p <- sim_data |>
   labs(x = "Average Happiness Score",
        y = " ",
        subtitle = "Average Life Expectancy (Years)",
-       title = "Simulated Relationship Between\nHappiness Score and Life\nExpectancy")
+       title = "Simulated Averate Life Expectancy\nbased on Regression Model")
 
 
 obs_reg_p <- hap_lex_updated |>
@@ -199,11 +199,40 @@ obs_reg_p <- hap_lex_updated |>
   labs(x = "Average Happiness Score",
        y = "",
        subtitle = "Average Life Expectancy (Years)",
-       title = "Relationship Between Happiness\nScore and Life Expectancy")
+       title = "Observed Average Life Expectancy")
 
 grid.arrange(obs_reg_p, sim_reg_p, ncol=2)
 
 # plot 2 plots side by side: https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2
+```
+
+## Generating Multiple Predictive Checks
+```{r}
+nsims <- 1000
+sims <- map_dfc(.x = 1:nsims,
+                .f = ~ tibble(sim = noise(hap_lex_predict, 
+                                          sd = sigma(hap_lex_lm))))
+colnames(sims) <- colnames(sims) |> 
+  str_replace(pattern = "\\.\\.\\.",
+                  replace = "_")
+
+sims <- hap_lex_updated |>
+  select(avg_life_exp) |>
+  bind_cols(sims)
+
+sim_r_sq <- sims |> 
+    map(~ lm(avg_life_exp ~ .x, data = sims)) |>
+    map(glance) |> 
+    map_dbl(~ .x$r.squared)
+sim_r_sq <- sim_r_sq[names(sim_r_sq) != "avg_life_exp"]
+
+tibble(sims = sim_r_sq) |> 
+  ggplot(aes(x = sims)) + 
+  geom_histogram(binwidth = 0.025) +
+  labs(x = expression("Simulated"~ R^2),
+       y = "",
+       subtitle = "Number of Simulated Models") +
+  theme_bw()
 ```
 
 
