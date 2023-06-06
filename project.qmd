@@ -23,7 +23,7 @@ library(kableExtra)
 library(gridExtra)
 library(purrr)
 library(plotly)
-library(gapminder)
+library(gganimate)
 happiness <- read_csv("hapiscore_whr.csv")
 lex <- read_csv("lex.csv")
 ```
@@ -77,7 +77,7 @@ Data cleaning and analysis were performed using the "tidyverse" package in R, in
 ## Relationship Between Quantitative Variables
 
 ```{r}
-hap_lex |>
+plot1 <- hap_lex |>
   drop_na() |>
   ggplot(mapping = aes(x = hap_score, 
                        y = life_expectancy)) +
@@ -87,25 +87,32 @@ hap_lex |>
        y = " ",
        subtitle = "Life Expectancy (Years)",
        title = "Relationship Between Happiness Score and Life Expectancy")
+
+ggplotly(plot1)
 ```
 The visualization depicts the relationship between the "Happiness Score" and "Life Expectancy" variables using a scatter plot. The scatter plot shows individual data points as circles, where the x-axis represents the happiness score and the y-axis represents life expectancy. The points are colored in a shade of medium orchid with an alpha value of 0.4, giving them a slightly transparent appearance. The plot exhibits a positive linear trend, indicating that as the happiness score increases, life expectancy tends to be higher. 
 
 ## Change in Relationship Over Time
-
 ```{r}
-hap_lex |>
+plot2 <- hap_lex |>
   drop_na() |>
+  mutate(year = as.integer(year)) |>
   ggplot(mapping = aes(x = hap_score, 
                        y = life_expectancy)) +
   geom_point(alpha = 0.4, 
              color = "mediumorchid3") +
   labs(x = "Happiness Score",
-       y = " ",
-       subtitle = "Life Expectancy (Years)",
-       title = "Relationship Between Happiness Score and Life Expectancy by Year") +
-  facet_wrap(~ year)
+       y = "Life Expectancy (Years)",
+       title = "Relationship Between Happiness Score and Life Expectancy") 
 
+plot2.animation = plot2 +
+  transition_time(year) +
+  labs(subtitle = "Year: {frame_time}")
+
+animate(plot2.animation, height = 500, width = 600, fps = 30, duration = 20, end_pause = 20, res = 80)
 ```
+
+
 The visualization consists of 16 individual graphs, each representing the relationship between "Happiness Score" and "Life Expectancy" for a specific year. By utilizing the facet_wrap() function, the graphs are arranged in a grid format, with one graph for each year. This allows for a comparison of the relationship between happiness score and life expectancy across different years. We can notice a trend showing that the points on the scatter plots gradually become closer together as time progresses. This suggests a reduction in the variability of life expectancy with respect to happiness score over the years. In other words, the relationship between these variables appears to have become more consistent and stable over time. Furthermore, the lowest values of life expectancy seem to exhibit an upward trend across the years. This indicates that the minimum life expectancy has increased for each subsequent year. This positive shift in the minimum values signifies an improvement in the lowest attainable life expectancy over time.
 
 # Linear Regression
@@ -209,6 +216,7 @@ grid.arrange(obs_reg_p, sim_reg_p, ncol=2)
 # plot 2 plots side by side: https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2
 ```
 The comparison between the observed and simulated data reveals similarities and differences. Both plots show the relationship between average happiness score and average life expectancy. They share a similar overall average and positive relationship, but we can see a couple of key differences in the two plots. The observed data has a lower minimum life expectancy compared to the simulated data, with the smallest point being 5 years lower than the lowest simulated point, suggesting the inclusion of countries with lower life expectancies. The simulated data appears to have more congestion around the average, indicating greater variability or concentration of points. Additionally, the simulated plot displays a larger maximum life expectancy, being 5 years larger than the maximum life expectancy in the observed data, which could be from extreme values due to the nature of the simulation process. 
+
 
 
 
