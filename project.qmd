@@ -161,7 +161,7 @@ kable(table,
   kable_classic(full_width = F)
 ```
 
-The response variance represents the overall variability in the observed values of the dependent variable (average life expectancy). In this model, the response variance is measured to be approximately 63.18226. The fitted variance corresponds to the variability in the predicted values of the dependent variable based on the regression model. In this case, the fitted variance is approximately 38.71835. This indicates the amount of variance that can be explained by the independent variable (happiness score) in predicting the life expectancy. Lastly, the residual variance represents the unexplained variability or the differences between the observed values and the predicted values. The residual variance, measured to be approximately 24.46391, signifies the portion of the response variance that is not accounted for by the model. 
+The response variance represents the overall variability in the observed values of the dependent variable (average life expectancy). In this model, the response variance is measured to be approximately 63.18. The fitted variance corresponds to the variability in the predicted values of the dependent variable based on the regression model. In this case, the fitted variance is approximately 38.72. This indicates the amount of variance that can be explained by the independent variable (happiness score) in predicting the life expectancy. Lastly, the residual variance represents the unexplained variability or the differences between the observed values and the predicted values. The residual variance, measured to be approximately 24.46, signifies the portion of the response variance that is not accounted for by the model. 
 
 Overall, the fit of the regression model can be assessed by comparing these variances. A good fit would be indicated by a relatively low residual variance compared to the response variance, suggesting that the model explains a significant portion of the observed variability. In this case, the residual variance represents a substantial proportion of the response variance, indicating that there might be other factors beyond happiness score that contribute to the variability in life expectancy.
 
@@ -202,7 +202,7 @@ obs_reg_p <- hap_lex_updated |>
   labs(x = "Average Happiness Score",
        y = "",
        subtitle = "Average Life Expectancy (Years)",
-       title = "Observed Relationship Between Happiness\nScore and Life Expectancy")
+       title = "Observed Relationship Between\nHappiness Score and\nLife Expectancy")
 
 grid.arrange(obs_reg_p, sim_reg_p, ncol=2)
 
@@ -257,4 +257,6 @@ Method of side-by-side plotting from [stackoverflow.com]( https://stackoverflow.
 GGplotly interactive graph from [rdocumentation](https://www.rdocumentation.org/packages/plotly/versions/4.10.1/topics/ggplotly)
 
 Method of animating graph from [gganimate](https://gganimate.com/)
+
+Method of rounding numbers from [stackoverflow.com](https://stackoverflow.com/questions/27613310/rounding-selected-columns-of-data-table)
 
