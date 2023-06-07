@@ -120,6 +120,7 @@ hap_lex_updated <- hap_lex |>
 hap_lex_lm <- lm(avg_life_exp ~ avg_hap_score, data = hap_lex_updated)
 
 broom::tidy(hap_lex_lm) |>
+  mutate_if(is.numeric, ~round(., 2)) |>
   kable(align = "cccrr", 
         col.names = c("Term", "Estimate", "Std Error", "Statistic", "P-value"), 
         caption = "Simple Linear Regression Fit") |>
@@ -147,6 +148,7 @@ table <- augment(hap_lex_lm) |>
   mutate(response_var = var(avg_life_exp),
          fitted_var = var(.fitted),
          residual_var = var(.resid)) |>
+  mutate_if(is.numeric, ~round(., 2)) |>
   select(response_var, 
          fitted_var, 
          residual_var) |>
@@ -200,7 +202,7 @@ obs_reg_p <- hap_lex_updated |>
   labs(x = "Average Happiness Score",
        y = "",
        subtitle = "Average Life Expectancy (Years)",
-       title = "Relationship Between Happiness\nScore and Life Expectancy")
+       title = "Observed Relationship Between Happiness\nScore and Life Expectancy")
 
 grid.arrange(obs_reg_p, sim_reg_p, ncol=2)
 
