@@ -215,6 +215,29 @@ grid.arrange(obs_reg_p, sim_reg_p, ncol=2)
 
 # plot 2 plots side by side: https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2
 ```
+```{r}
+sim_data |> 
+  ggplot(aes(x = sim_avg_life_exp, 
+             y = avg_life_exp)
+         ) + 
+  geom_point(alpha = 0.4, color = "mediumorchid3") + 
+   labs(x = "Simulated Life Expectancy (Years)", 
+        y = "",
+        subtitle = "Observed Life Expectancy (Years)") + 
+  geom_abline(slope = 1,
+              intercept = 0, 
+              color = "steelblue",
+              linetype = "dashed",
+              lwd = 1.5) 
+
+#sim_stats <- lm(avg_life_exp ~ sim_avg_life_exp, 
+   #data = sim_data) |>
+  #glance() |>
+  #kable()
+
+#sim_stats
+```
+
 The comparison between the observed and simulated data reveals similarities and differences. Both plots show the relationship between average happiness score and average life expectancy. They share a similar overall average and positive relationship, but we can see a couple of key differences in the two plots. The observed data has a lower minimum life expectancy compared to the simulated data, with the smallest point being 5 years lower than the lowest simulated point, suggesting the inclusion of countries with lower life expectancies. The simulated data appears to have more congestion around the average, indicating greater variability or concentration of points. Additionally, the simulated plot displays a larger maximum life expectancy, being 5 years larger than the maximum life expectancy in the observed data, which could be from extreme values due to the nature of the simulation process. 
 
 ## Generating Multiple Predictive Checks
@@ -244,8 +267,7 @@ tibble(sims = sim_r_sq) |>
   geom_histogram(binwidth = 0.025) +
   labs(x = expression("Simulated"~ R^2),
        y = "",
-       subtitle = "Number of Simulated Models") +
-  theme_bw()
+       subtitle = "Number of Simulated Models")
 ```
 
 
