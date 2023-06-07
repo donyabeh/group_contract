@@ -240,11 +240,8 @@ tibble(sims = sim_r_sq) |>
        subtitle = "Number of Simulated Models",
        title = expression('Simulated R'^2*' for Multiple Simulated Models'))
 ```
-Plot the distribution of the R2 values from the regressions. Discuss the implications of the values shown in this plot. How well does your model generate data similar to what was observed?
 
-
-    Present visuals of simulated data (alongside observed data) and discuss similarities and/or differences.
-    Present R2  distribution plot and discuss implications.
+The plot above shows that the simulated datasets have R^2 values between 0.2 and 0.52. This indicates that the data simulated under our statistical model accounts for around 37.5% of the variability in observed life expectancy. The model is generating data that does not align well with the observed data. This means that the simulated predictors are not able to explain a significant portion of the variation in the dependent variable.
 
 
 ## References
