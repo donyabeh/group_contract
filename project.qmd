@@ -39,7 +39,8 @@ hap_clean <- happiness |>
 
 ```{r}
 hap_lex <-hap_clean |>
-    inner_join(lex_clean)
+    inner_join(lex_clean) |>
+  drop_na()
 ```
 
 # Description, Hypothesis, & Explanation of Methods
@@ -56,9 +57,9 @@ We hypothesize that life expectancy will increase with happiness score. This is 
 
 ## Data Cleaning Process
 
-Data cleaning and analysis were performed using the "tidyverse" package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2005 to 2022, since the limiting dataset was the happiness score's date range. In the lex clean dataset, there were 27 missing values, which were all in the 'life expectancy' category. There were 9 countries with 3 missing values each, in the years 2020, 2021, and 2022. Since there were only 9 countries with a few values missing each, we chose to keep the dates up to 2022. 
+Data cleaning and analysis were performed using the "tidyverse" package in R, involving column selection, pivoting to long format, and removal of null values. We decided on a range from 2006 to 2021, since the limiting dataset was the happiness score's date range. In the lex clean dataset, there were 27 missing values, which were all in the 'life expectancy' category. There were 9 countries with 3 missing values each, in the years 2020, 2021, and 2022. Since there were only 9 countries with a few values missing each, we chose to keep the dates up to 2021. 
 
-The happiness clean set had more missing values, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. So, we concluded that there were no invisible variables affecting where missing values were occurring. As a result of our missing value analysis, we chose to further restrict the date range to 2006. We elected to leave the missing values in the dataset. The data sets were then joined using an inner join operation based on common columns. 
+The happiness clean set had more missing values, with 732 total. A good portion of them (136) were from 2005, with the rest occurring randomly across all other years of the study. So, we concluded that there were no invisible variables affecting where missing values were occurring. As a result of our missing value analysis, we chose to further restrict the date range to 2006. We elected to drop the missing values in the dataset. The data sets were then joined using an inner join operation based on common columns. 
 
 # Data Visualization 
 
@@ -66,7 +67,6 @@ The happiness clean set had more missing values, with 732 total. A good portion 
 
 ```{r}
 plot1 <- hap_lex |>
-  drop_na() |>
   ggplot(mapping = aes(x = hap_score, 
                        y = life_expectancy)) +
   geom_point(alpha = 0.4, 
@@ -84,7 +84,6 @@ The visualization depicts the relationship between the "Happiness Score" and "Li
 ## Change in Relationship Over Time
 ```{r}
 plot2 <- hap_lex |>
-  drop_na() |>
   mutate(year = as.integer(year)) |>
   ggplot(mapping = aes(x = hap_score, 
                        y = life_expectancy)) +
@@ -108,7 +107,6 @@ The visualization consists of an animated graphic, representing the relationship
 
 ```{r}
 hap_lex_updated <- hap_lex |>
-  drop_na() |>
   group_by(country) |>
   summarise(avg_hap_score = mean(hap_score), 
             avg_life_exp = mean(life_expectancy))
