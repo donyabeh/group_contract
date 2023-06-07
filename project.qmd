@@ -24,6 +24,7 @@ library(gridExtra)
 library(purrr)
 library(plotly)
 library(gganimate)
+library(gifski)
 happiness <- read_csv("hapiscore_whr.csv")
 lex <- read_csv("lex.csv")
 ```
@@ -88,7 +89,8 @@ plot1 <- hap_lex |>
        subtitle = "Life Expectancy (Years)",
        title = "Relationship Between Happiness Score and Life Expectancy")
 
-ggplotly(plot1)
+ggplotly(plot1) |>
+  layout(title = list(text = paste0('Relationship Between Happiness Score and Life Expectancy', '<br>', '<sup>', 'Life Expectancy (Years)', '</sup>')))
 ```
 The visualization depicts the relationship between the "Happiness Score" and "Life Expectancy" variables using a scatter plot. The scatter plot shows individual data points as circles, where the x-axis represents the happiness score and the y-axis represents life expectancy. The points are colored in a shade of medium orchid with an alpha value of 0.4, giving them a slightly transparent appearance. The plot exhibits a positive linear trend, indicating that as the happiness score increases, life expectancy tends to be higher. 
 
