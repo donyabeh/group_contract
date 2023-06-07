@@ -254,3 +254,7 @@ Var function from [rdocumentation](https://www.rdocumentation.org/packages/cmvno
 
 Method of side-by-side plotting from [stackoverflow.com]( https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2)
 
+GGplotly interactive graph from [rdocumentation](https://www.rdocumentation.org/packages/plotly/versions/4.10.1/topics/ggplotly)
+
+Method of animating graph from [gganimate](https://gganimate.com/)
+
