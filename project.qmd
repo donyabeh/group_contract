@@ -258,7 +258,6 @@ Plot the distribution of the R2 values from the regressions. Discuss the implica
     Present R2  distribution plot and discuss implications.
 
 
-
 ## References
 
 Data from [gapminder](https://www.gapminder.org/data/)
