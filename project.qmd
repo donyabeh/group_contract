@@ -235,7 +235,8 @@ tibble(sims = sim_r_sq) |>
   geom_histogram(binwidth = 0.025, color = "mediumorchid4", fill = "mediumorchid3") +
   labs(x = expression("Simulated"~ R^2),
        y = "",
-       subtitle = "Number of Simulated Models")
+       subtitle = "Number of Simulated Models",
+       title = expression('Simulated R'^2*' for Multiple Simulated Models'))
 ```
 Plot the distribution of the R2 values from the regressions. Discuss the implications of the values shown in this plot. How well does your model generate data similar to what was observed?
 
