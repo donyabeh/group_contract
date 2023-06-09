@@ -79,7 +79,7 @@ plot1 <- hap_lex |>
 ggplotly(plot1) |>
   layout(title = list(text = paste0('Relationship Between Happiness Score and Life Expectancy', '<br>', '<sup>', 'Life Expectancy (Years)', '</sup>')))
 ```
-The visualization depicts the relationship between the "Happiness Score" and "Life Expectancy" variables using a scatter plot. The scatter plot shows individual data points as circles, where the x-axis represents the happiness score and the y-axis represents life expectancy. The points are colored in a shade of medium orchid with an alpha value of 0.4, giving them a slightly transparent appearance. The plot exhibits a positive linear trend, indicating that as the happiness score increases, life expectancy tends to be higher. 
+The visualization depicts the relationship between the "Happiness Score", as represented by `hap_score`, and "Life Expectancy", as represented by `life_expectancy`, variables using a scatter plot. The scatter plot shows individual data points as circles, where the x-axis represents the happiness score and the y-axis represents life expectancy. The points are colored in a shade of medium orchid with an alpha value of 0.4, giving them a slightly transparent appearance. The plot exhibits a positive linear trend, indicating that as the happiness score increases, life expectancy tends to be higher. 
 
 ## Change in Relationship Over Time
 ```{r}
@@ -251,6 +251,8 @@ Var function from [rdocumentation](https://www.rdocumentation.org/packages/cmvno
 Method of side-by-side plotting from [stackoverflow.com]( https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2)
 
 GGplotly interactive graph from [rdocumentation](https://www.rdocumentation.org/packages/plotly/versions/4.10.1/topics/ggplotly)
+
+Adding subtitle for GGplotly graph from [datascott.com](https://datascott.com/blog/subtitles-with-ggplotly/)
 
 Method of animating graph from [gganimate](https://gganimate.com/)
 
